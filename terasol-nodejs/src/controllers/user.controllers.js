@@ -217,7 +217,7 @@ exports.imageUpload = (req,res) =>{
     if(err) {
       res.status(400).send("Something went wrong!");
     }
-    res.status(200).send({status:200,message:'Update Failed',data:req.file});
+    res.status(200).send({status:200,message:'File uploaded',data:req.file});
   });
 
 
