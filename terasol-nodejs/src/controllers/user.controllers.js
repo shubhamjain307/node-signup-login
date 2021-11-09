@@ -2,6 +2,7 @@ const User = require('../models/user.model.js');
 const bcrypt = require('bcrypt');
 const sendMail = require('../../mail')
 const jwt = require("jsonwebtoken");
+const {upload,getFilePath,getFileUrl} = require('../../utils/common.js')
 
 // Retrieve and return all users from the database.
 exports.findAll = (req, res) => {
@@ -158,13 +159,11 @@ exports.userProfile = async(req,res)=>{
         const user = await User.findOne({ _id:user_id });
     
         if (!user) {
-          return res.status(400).send("Invalid token");
-          
-          
+          return res.status(400).send("Invalid token");     
         }
-        
+        user.profile= getFileUrl(req)+user.profile_pic
         return res.status(200)
-               .json({status:200,message:"user profile retrieved successfully",data:{name:user.name,email:user.email,profile_img:user.profile_pic}});
+               .json({status:200,message:"user profile retrieved successfully",data:{name:user.name,email:user.email,profile_img:user.profile}});
        
       } catch (err) {
         console.log(err);
@@ -209,5 +208,20 @@ exports.update = async(req, res) => {
   }
 
 };
+
+// File upload 
+
+exports.imageUpload = (req,res) =>{
+
+  upload(req, res, (err) => {
+    if(err) {
+      res.status(400).send("Something went wrong!");
+    }
+    res.status(200).send({status:200,message:'Update Failed',data:req.file});
+  });
+
+
+}
+
 
 

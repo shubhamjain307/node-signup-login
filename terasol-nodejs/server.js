@@ -4,6 +4,7 @@ const bodyParser = require('body-parser')
 
 const dbConfig = require('./config/db.config.js');
 const mongoose = require('mongoose');
+var cors = require('cors')
 
 // Require Users routes
 const userRoutes = require('./src/routes/user.route')

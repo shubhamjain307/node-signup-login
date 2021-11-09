@@ -10,6 +10,8 @@ const auth = require('../middleware/auth')
  router.post('/login', userController.userLogin);
  router.get('/user-profile',auth ,userController.userProfile);
  router.put('/user-profile', auth,userController.update);
+
+ router.post('/upload',userController.imageUpload)
 // Retrieve a single user with id
 // router.get('/:id', userController.findOne);
 // Update a user with id
